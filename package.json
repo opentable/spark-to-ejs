@@ -1,0 +1,20 @@
+{
+  "name": "spark-to-js-gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abraham Arias",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^1.2.0",
+    "gulp-ext-replace": "^0.2.0",
+    "gulp-replace-task": "^0.2.1",
+    "run-sequence": "^1.1.0"
+  },
+  "dependencies": {
+    "gulp-install": "^0.4.0"
+  }
+}
