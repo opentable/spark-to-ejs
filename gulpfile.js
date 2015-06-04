@@ -10,29 +10,40 @@ gulp.task('Clean', function() {
 });
 
 gulp.task('Replace', function () {
-   return gulp.src('/Users/Abram/GitHub/SearchResults/Web/Views/Shared/**/*.spark')
+   return gulp.src('/Users/aarias/Git/spark-to-ejs/Views/Shared/**/*.spark')
     .pipe(replace({
       patterns: [
 
         {
-          match: /\$\{\=/g,
+          match: /(<viewdata)(.+)(\/\>)/g,
           replacement: function(){
-           return '<%';
+           return '' ;
           }
         },
-
+        {
+          match: /(\$\{)(\w+)(\})/g,
+          replacement: function(match, left, center, right){
+           return '<%= ' + center + '%>' ;
+          }
+        },
+        {
+          match: /\$\{/g,
+          replacement: function(){
+          return '<% ';
+           }
+        },
           {
             match: /\}/g,
             replacement: function(){
-            return '%>';
+            return ' %>';
              }
           },
           ,
 
           {
-            match: /\<meta if\=\"\!string\.IsNullOrEmpty\(/g,
-            replacement: function(){
-            return '<%if (Data.';
+            match: /(\<if condition\=\")(.+)(\"\>)/g,
+            replacement: function(match, left, center, right){
+            return '<%if (' + center + ') %>';
              }
           },
           ,
@@ -170,6 +181,39 @@ gulp.task('Replace', function () {
             return '<% include  ../Redesign/filters/_FilterSortOrder  %>';
              }
           },
+           {
+            match: /\<render partial\=\"\_FilterSortOrder\" request\=\"filters\.Request\" \/\>/g,
+            replacement: function(){
+            return '<% include  ../Redesign/filters/_FilterSortOrder  %>';
+             }
+          },
+          {
+            match: /\_\$\{/g,
+            replacement: function(){
+             return '_<%=' ;
+            }
+          },
+          {
+            match: /\<\/if>/g,
+            replacement: function(){
+             return '<% } %>' ;
+            }
+          }
+          ,
+          {
+            match: /\<\/for/g,
+            replacement: function(){
+             return '<% } %>' ;
+            }
+          }
+          ,
+          {
+            match: /\"\$\{/g,
+            replacement: function(){
+             return '"<%=' ;
+            }
+          }
+
 
       ]
     }))
