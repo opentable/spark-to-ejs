@@ -10,15 +10,36 @@ gulp.task('Clean', function() {
 });
 
 gulp.task('Replace', function () {
-   return gulp.src('/Users/aarias/Git/spark-to-ejs/Views/Shared/**/*.spark')
+   return gulp.src('/Users/aarias/Git/spark-to-ejs/Views/**/*.spark')
     .pipe(replace({
       patterns: [
-
         {
           match: /(<viewdata)(.+)(\/\>)/g,
           replacement: function(){
            return '' ;
           }
+        },
+          {
+          match: /(<viewdata)(.+)(\/\>)/g,
+          replacement: function(){
+              return '' ;
+            }
+        },
+        {
+          match: /(\<render partial\=\"_)(\w+)(\".+\/\>)/g,
+          replacement: function(match, left, center, right){
+            var i ="'";
+            var arguments=right;
+            return '<%- partial( '+i+'_' + center + i+ ','+arguments.replace(/(")+/g, '').replace(/(\/\>)+/g, '')+' ) %>';
+           }
+        },
+        {
+          match: /(\<render partial\=\")(.)(\".\/\>)/g,
+          replacement: function(match, left, center, right){
+            var i ="'";
+            var arguments=right;
+            return '<%- partial( '+i + center + i+ ','+arguments.replace(/(")+/g, '')+' ) %>';
+           }
         },
         {
           match: /(\$\{)(\w+)(\})/g,
@@ -33,39 +54,55 @@ gulp.task('Replace', function () {
            }
         },
           {
-            match: /\}/g,
+            match: /\}/g,  //I need fix this
             replacement: function(){
             return ' %>';
              }
           },
-          ,
-
+          {
+            match: /(\<li if\=\")(.+)(\"\>)/g,
+            replacement: function(match, left, center, right){
+            return '<li>'+
+            '<%if (' + center + ') %>';
+             }
+          },
           {
             match: /(\<if condition\=\")(.+)(\"\>)/g,
             replacement: function(match, left, center, right){
-            return '<%if (' + center + ') %>';
+            return '<%if (' + center + ') %>'+match;
              }
           },
-          ,
 
           {
             match: /\<div if\=\"/g,
             replacement: function(){
             return '<%if (Data.';
              }
-          },
-
+          }
+          ,
           {
-            match: /\<if condition\=\"/g,
+            match: /\<\/if>/g,
             replacement: function(){
-            return '<%if (Data.';
-             }
+             return '<% } %>' ;
+            }
           },
-
+          {
+            match: /\<\/else>/g,
+            replacement: function(){
+             return '<% } %>' ;
+            }
+          }
+          ,
+          {
+            match: /\<\/for/g,
+            replacement: function(){
+             return '<% } %>' ;
+            }
+          },
           {
             match: /\<else\>/g,
             replacement: function(){
-            return '<% } else { %>';
+            return '<% else { %>';
              }
           },
 
@@ -99,111 +136,18 @@ gulp.task('Replace', function () {
             return '<%- Data.Js %>';
              }
           },
-
-          {
-            match: /\<render partial\=\"/g,
-            replacement: function(){
-            return '<% include  ../';
-             }
-          },
-          {
-            match: /\<render partial\=\"Redesign\/Filters\/\_Filters\" filters\=\"Model\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/Filters/_Filters %>';
-             }
-          },
-           {
-            match: /\<render partial\=\"Redesign\/Results\/\_ResultsTable" resultsTable\=\"Model\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/Results/_ResultsTable  %>';
-             }
-          },
-           {
-            match: /\<render partial\=\"Redesign\/Results\/\_NoResults\" noResults\=\"Model\" clearLastFilter\=\"false\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/Results/_NoResults  %>';
-             }
-          },
-
           {
             match: /\#Html\.RenderAction\(\"Header\"\, \"Srs\"\, new \{ pageType \= Model\.Display\.SrsPageType\, domainCulture \= Model\.DomainCulture\, metro \= Model\.Display\.Metro \}\)\;/g,
             replacement: function(){
             return '<%- Data.Header %>';
              }
           },
-          ,
 
-          {
-            match: /\<render partial\=\"\_FilterLocationGroup" filterLocationGroup\=\"filters\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterLocationGroup  %>';
-             }
-          },
-          {
-            match: /\<render partial\=\"\_FilterCuisine\" filterCuisine\=\"filters\.Filters\.Cuisines\" selectedCount\=\"filters\.Filters\.SelectedCuisineCount\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterCuisine  %>';
-             }
-          },
-          {
-            match: /\<render partial\=\"\_FilterOffers\" filterOffers\=\"filters\" filterGroupId\=\"\'offer\_type\_filters\'\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterOffers  %>';
-             }
-          },
-          {
-            match: /\<render partial\=\"\_FilterPrice\" filterPrice\=\"filters\.Filters\.PriceBands\" selectedCount\=\"filters\.Filters\.SelectedPriceBandCount\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterPrice  %>';
-             }
-          },
-          {
-            match: /\<render partial\=\"\_FilterExactTime\" filterExactTime\=\"filters\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterExactTime  %>';
-             }
-          },
-          {
-            match: /\<render partial\=\"\_FilterPopOnly\" filterPopOnly\=\"filters\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterPopOnly  %>';
-             }
-          },
-           {
-            match: /\<render partial\=\"\_FilterViewOptions\" filterViewOptions\=\"filters\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterViewOptions  %>';
-             }
-          },
-           {
-            match: /\<render partial\=\"\_FilterSortOrder\" request\=\"filters\.Request\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterSortOrder  %>';
-             }
-          },
-           {
-            match: /\<render partial\=\"\_FilterSortOrder\" request\=\"filters\.Request\" \/\>/g,
-            replacement: function(){
-            return '<% include  ../Redesign/filters/_FilterSortOrder  %>';
-             }
-          },
+
           {
             match: /\_\$\{/g,
             replacement: function(){
              return '_<%=' ;
-            }
-          },
-          {
-            match: /\<\/if>/g,
-            replacement: function(){
-             return '<% } %>' ;
-            }
-          }
-          ,
-          {
-            match: /\<\/for/g,
-            replacement: function(){
-             return '<% } %>' ;
             }
           }
           ,
