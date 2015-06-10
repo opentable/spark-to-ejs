@@ -23,7 +23,7 @@ gulp.task('Replace', function () {
           match: /(<viewdata)(.+)(\/\>)/g,
           replacement: function(){
               return '' ;
-            }
+          }
         },
         {
           match: /(\<render partial\=\"_)(\w+)(\".+\/\>)/g,
@@ -81,13 +81,20 @@ gulp.task('Replace', function () {
           }
           ,
           {
-            match: /\<\/if>/g,
+            match: /\<\/if\>/g,
             replacement: function(){
              return '<% } %>' ;
             }
           },
           {
-            match: /\<\/else>/g,
+            match: /\<\/else\>/g,
+            replacement: function(){
+             return '<% } %>' ;
+            }
+          }
+          ,
+          {
+            match: /\<\}\></g,
             replacement: function(){
              return '<% } %>' ;
             }
@@ -157,11 +164,104 @@ gulp.task('Replace', function () {
              return '"<%=' ;
             }
           }
+          ,
+          {
+          match: /(\<render if\=\"_)(\.+)(\"\/\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return '<%if(' + center+ ') %>';
+           }
+          },
+          {     
+            match: /\!\{(.+)(\/})/g,
+            replacement: function(match, left, center, right){
+             return '<%=!'+ center + '%>'
+            }
+          },
 
+          {
+          match: /(\<div if\=\"\!string\.IsNullOrEmpty\(\=\"_)(\.+)(\"\/\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return '<%if(' + center+ ') %>';
+           }
+        },
+          {     
+            match: /\!\{(.+)(\/})/g,
+            replacement: function(match, left, center, right){
+             return '<%=!'+ center + '%>'
+            }
+          },
+             {
+          match: /(\<for each\=\")(\.+)(\"\>)/g,
+          replacement: function(match, left, center, right){
 
+            var arguments=right;
+            return '<%-'+ left+center+'.forEach(function(r) { %>'
+            
+           }
+        },
+        {
+          match: /(\<render  if\=\")(\.+)(\"\/\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return '<%if(' + center+ ') %>';
+           }
+        },
+        ,
+        {
+          match: /(\<partial\=\")(\.+)(\"\/\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <%-partial('+ center+ ') %>';
+           }
+        },
+        {
+          match: /\<a href\=\"\$\{)(\.+)(\})/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <a href=<%='+ center+ '%>';
+           }
+        },
+        ,
+        {
+          match: /\#for\()(\.+)(\)\{)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <% for('+ center+ '){%>';
+           }
+        },
+        {
+          match: /\<i if\=\"(\.+)(\<\/i\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <%if'+ center+ '){%>'+'<i>'+left+'<i>';
+           }
+        },
+          {
+          match: /\<span if\=\"(\.+)(\"\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <%if'+ center+ '){%>'+'<span>'+left+'</span>';
+           }
+        },
+        {
+          match: /\<h2 if\=)(\.+)(\<\/h2\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <%if'+ center+ '){%>'+'<h2>'+left+'<h2>';
+           }
+        },
+        {
+          match: /\<h3 if\=)(\.+)(\<\/h2\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <%if'+ center+ '){%>'+'<h3>'+left+'<h3>';
+           }
+        },
       ]
     }))
-    .pipe(gulp.dest('Templates-spark'));
+    .pipe(gulp.dest('/templates-js/'));
 });
 
 gulp.task('Change_Extensions',  function() {
