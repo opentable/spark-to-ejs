@@ -13,6 +13,12 @@ gulp.task('Replace', function () {
    return gulp.src('/Users/aarias/Git/spark-to-ejs/Views/**/*.spark')
     .pipe(replace({
       patterns: [
+          {
+            match: /(<cache key\=\")(.+)(\/\>)/g,
+            replacement: function(){
+             return '' ;
+            }
+          },
         {
           match: /(<viewdata)(.+)(\/\>)/g,
           replacement: function(){
@@ -49,6 +55,13 @@ gulp.task('Replace', function () {
         },
         {
           match: /\$\{/g,
+          replacement: function(){
+          return '<% ';
+           }
+        },
+        ,
+        {
+          match: /\#\{/g,
           replacement: function(){
           return '<% ';
            }
@@ -172,7 +185,7 @@ gulp.task('Replace', function () {
             return '<%if(' + center+ ') %>';
            }
           },
-          {     
+          {
             match: /\!\{(.+)(\/})/g,
             replacement: function(match, left, center, right){
              return '<%=!'+ center + '%>'
@@ -186,7 +199,7 @@ gulp.task('Replace', function () {
             return '<%if(' + center+ ') %>';
            }
         },
-          {     
+          {
             match: /\!\{(.+)(\/})/g,
             replacement: function(match, left, center, right){
              return '<%=!'+ center + '%>'
@@ -198,7 +211,7 @@ gulp.task('Replace', function () {
 
             var arguments=right;
             return '<%-'+ left+center+'.forEach(function(r) { %>'
-            
+
            }
         },
         {
@@ -243,6 +256,13 @@ gulp.task('Replace', function () {
           replacement: function(match, left, center, right){
             var arguments=right;
             return ' <%if'+ center+ '){%>'+'<span>'+left+'</span>';
+           }
+        },
+          {
+          match: /\<p if\=\"(\.+)(\"\>)/g,
+          replacement: function(match, left, center, right){
+            var arguments=right;
+            return ' <%if'+ center+ '){%>'+'<p>'+left+'</p>';
            }
         },
         {
