@@ -149,7 +149,6 @@ gulp.task('Replace', function () {
              }
           }
           ,
-
           {
             match: /\#Html.RenderAction\(\"Js\"\, \"Srs\"\, new \{ domainCulture \= Model\.DomainCulture\, jqueryOnBody \= false \}\)\;/g,
             replacement: function(){
@@ -208,7 +207,6 @@ gulp.task('Replace', function () {
              {
           match: /(\<for each\=\")(\.+)(\"\>)/g,
           replacement: function(match, left, center, right){
-
             var arguments=right;
             return '<%-'+ left+center+'.forEach(function(r) { %>'
 
@@ -234,21 +232,6 @@ gulp.task('Replace', function () {
           replacement: function(match, left, center, right){
             var arguments=right;
             return ' <a href=<%='+ center+ '%>';
-           }
-        },
-        ,
-        {
-          match: /\#for\()(\.+)(\)\{)/g,
-          replacement: function(match, left, center, right){
-            var arguments=right;
-            return ' <% for('+ center+ '){%>';
-           }
-        },
-        {
-          match: /\<i if\=\"(\.+)(\<\/i\>)/g,
-          replacement: function(match, left, center, right){
-            var arguments=right;
-            return ' <%if'+ center+ '){%>'+'<i>'+left+'<i>';
            }
         },
           {
