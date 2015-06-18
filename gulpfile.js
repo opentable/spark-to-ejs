@@ -25,7 +25,9 @@ gulp.task('Replace', function () {
           return '<%= ' + center + '%>' ;
           }
         },
-        ]
+
+                ]
+
     }))
     .pipe(gulp.dest('/Users/aarias/Git/spark-to-ejs/Templates-ejs2/'));
 });
