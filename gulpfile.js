@@ -10,6 +10,10 @@ gulp.task('Clean', function() {
     return del(['Templates-ejs/','Templates-ejs2/']);
 });
 
+gulp.task('command', shell.task([
+  'echo hello',
+]))
+
 gulp.task('Replace', function () {
    return gulp.src('/Users/aarias/Git/spark-to-ejs/Templates-ejs/**/*.ejs')
     .pipe(replace({
@@ -21,13 +25,10 @@ gulp.task('Replace', function () {
           return '<%= ' + center + '%>' ;
           }
         },
-
         ]
     }))
     .pipe(gulp.dest('/Users/aarias/Git/spark-to-ejs/Templates-ejs2/'));
 });
-
-
 
 gulp.task('Change_Extensions',  function() {
     return gulp.src('views/**/*.spark')
