@@ -1,43 +1,37 @@
-var gulp = require('gulp');
-var shell = require('gulp-shell');
-var del = require('del');
-var ext_replace = require('gulp-ext-replace');
-var replace = require('gulp-replace-task');
-var runSequence = require('run-sequence');
+var gulp        = require('gulp'),
+    ext_replace = require('gulp-ext-replace'),
+    replace     = require('gulp-replace-task'),
+    runSequence = require('run-sequence'),
+    fs          = require("fs"),
+    through     = require('through2'),
+    engine      = require('./lib/rulesEngine.js'),
+    cheerio     = require('cheerio'),
+    jshint      = require('gulp-jshint');
+ 
 
-
-gulp.task('Clean', function() {
-    return del(['Templates-ejs/','Templates-ejs2/']);
+gulp.task('Lint', function () {
+   return gulp.src('./lib/*.js')
+       .pipe(jshint())
+       .pipe(jshint.reporter('default'));
 });
-
-gulp.task('command', shell.task([
-  'echo hello',
-]))
-
-gulp.task('Replace', function () {
-   return gulp.src('/Users/aarias/Git/spark-to-ejs/Templates-ejs/**/*.ejs')
-    .pipe(replace({
-      patterns: [
-
-        {
-          match: /(\$\{)(.+)(\})/g,
-          replacement: function(match, left, center, right){
-          return '<%= ' + center + '%>' ;
-          }
-        },
-
-                ]
-
-    }))
-    .pipe(gulp.dest('/Users/aarias/Git/spark-to-ejs/Templates-ejs2/'));
-});
-
+ 
 gulp.task('Change_Extensions',  function() {
-    return gulp.src('views/**/*.spark')
+    return gulp.src('./Views/**/*.spark')
       .pipe(ext_replace('.ejs'))
-      .pipe(gulp.dest('/Users/aarias/Git/spark-to-ejs/Templates-ejs'))
+      .pipe(gulp.dest('./templates-ejs'))
 });
-
+ 
+gulp.task("Read_File", function() {
+    return gulp.src('./templates-ejs/**/*.ejs')
+        .pipe(through.obj(function (file, enc,cb) {
+            var content = String(file.contents),
+                output = engine.rulesEngine(content, cheerio);
+            fs.writeFile(file.path, output, function (err) {
+                cb(null,file);
+            });
+        }))
+});
+ 
 gulp.task('build', function(callback) {
-  runSequence('Clean','Change_Extensions','Replace',callback);
+  runSequence('Lint','Change_Extensions','Read_File',callback);
 });
