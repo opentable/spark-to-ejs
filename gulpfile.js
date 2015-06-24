@@ -16,7 +16,7 @@ gulp.task('Lint', function () {
 });
 
 gulp.task('Change_Extensions',  function() {
-    return gulp.src('./Views/**/*.spark')
+    return gulp.src('./test/**/*.spark')
       .pipe(ext_replace('.ejs'))
       .pipe(gulp.dest('./templates-ejs'))
 });
