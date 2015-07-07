@@ -1,3 +1,4 @@
+var config = require('./config');
 var gulp        = require('gulp'),
     ext_replace = require('gulp-ext-replace'),
     replace     = require('gulp-replace-task'),
@@ -16,13 +17,13 @@ gulp.task('Lint', function () {
 });
 
 gulp.task('Change_Extensions',  function() {
-    return gulp.src('./test/**/*.spark')
+    return gulp.src(config.routes.input+'/**/*.spark')
       .pipe(ext_replace('.ejs'))
-      .pipe(gulp.dest('./templates-ejs'))
+      .pipe(gulp.dest(config.routes.output))
 });
 
 gulp.task("Read_File", function() {
-    return gulp.src('./templates-ejs/**/*.ejs')
+    return gulp.src(config.routes.output+'/**/*.ejs')
         .pipe(through.obj(function (file, enc,cb) {
             var content = String(file.contents),
                 output = engine.rulesEngine(content, cheerio);
