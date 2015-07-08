@@ -17,13 +17,13 @@ gulp.task('Lint', function () {
 });
 
 gulp.task('Change_Extensions',  function() {
-    return gulp.src(config.routes.input+'/**/*.spark')
+    return gulp.src(config.inputPath+'/**/*.spark')
       .pipe(ext_replace('.ejs'))
-      .pipe(gulp.dest(config.routes.output))
+      .pipe(gulp.dest(config.outPath))
 });
 
 gulp.task("Read_File", function() {
-    return gulp.src(config.routes.output+'/**/*.ejs')
+    return gulp.src(config.outPath+'/**/*.ejs')
         .pipe(through.obj(function (file, enc,cb) {
             var content = String(file.contents),
                 output = engine.rulesEngine(content, cheerio);
