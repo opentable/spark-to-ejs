@@ -1,4 +1,4 @@
 module.exports = {
-   inputPath : './test',
+   inputPath : './Views',
    outPath  :  './templates-ejs'
 };

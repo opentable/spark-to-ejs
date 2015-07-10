@@ -22,6 +22,9 @@ gulp.task('Change_Extensions',  function() {
       .pipe(gulp.dest(config.outPath))
 });
 
+/*
+Read_File is going read all the templates and apply the rules.
+*/
 gulp.task("Read_File", function() {
     return gulp.src(config.outPath+'/**/*.ejs')
         .pipe(through.obj(function (file, enc,cb) {
