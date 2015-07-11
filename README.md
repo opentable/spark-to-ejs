@@ -2,20 +2,6 @@
 This is a gulp project that uses some awesome libraries like cheerio and through2  for converting spark templates to ejs. so far, this project transform this spark tags
 
 ###some examples:
-1. [Conditional elements](#Conditional-elements)
-   * [If](#If)
-   * [Element if](#Element-if)
-   * [Test](#Test)
-2. [Looping and iteration](#Looping-and-iteration)
-  * [Each attribute](#Each-attribute)
-  * [Foreach loop](#Foreach-loop)
-3. [Variables](#Variables)
-4. [Render Partial](#Render-Partial)
-5. [Installation](#Installation)
-  * [How to install](#Ho-to-install)
-  * [How to run](#How-to-run)
-
-###Conditional elements
 ###If
 ```xml
     SPARK
@@ -49,8 +35,6 @@ This is a gulp project that uses some awesome libraries like cheerio and through
        anyXml
      <% } %>
  ```
-###Looping and iteration
-
 ###Each attribute
 ```xml
     SPARK
