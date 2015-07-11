@@ -71,7 +71,7 @@ This is a gulp project that uses some awesome libraries like cheerio and through
        <%-partial('Redesign/_Restaurants',Results=Model)%>
 ```
 ##Installation
-```$ git clone https://github.com/opentable/spark-to-ejs.git```<br>
+```$git clone https://github.com/opentable/spark-to-ejs.git```<br>
    ```$cd spark-to-ejs```<br>
    ```$npm install```<br>
 ###Run
