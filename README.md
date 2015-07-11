@@ -1,5 +1,5 @@
 #Spark to EJS Converter Script
-This is a gulp project that uses some awesome libraries like cheerio and through2  for converting spark templates to ejs. so far, this project transform this spark tags
+This is a gulp project that uses some awesome libraries like cheerio and ejs-mate for converting spark templates to ejs. so far, this project transform this spark tags
 
 ###some examples:
 ###If
@@ -9,7 +9,7 @@ This is a gulp project that uses some awesome libraries like cheerio and through
           <div>content</div>
       </if>
     EJS
-      <% if(condition){ %>
+      <% if(item==true){ %>
           <div>content</div>
       <%}%>
 ```
@@ -38,7 +38,7 @@ This is a gulp project that uses some awesome libraries like cheerio and through
 ###Each attribute
 ```xml
     SPARK
-         <label each="var offer in Offers" class="offers">${offer}</label>
+         <label each="var offer in Offers" class="offers">${offer.name}</label>
     EJS
         <% Offers.forEach(function(offer) { %>
             <label class='offers' ><%=offer.name%></label>
@@ -84,3 +84,4 @@ module.exports = {
    outPath  :  './templates-ejs'
 };
 ```
+The MIT License (MIT)
