@@ -18,15 +18,14 @@ gulp.task('Lint', function () {
        .pipe(jshint.reporter('default'));
 });
 
+/*this task is going to read all the spark templates and change its extension to .EJS*/
 gulp.task('Change_Extensions',  function() {
     return gulp.src(config.inputPath+'/**/*.spark')
       .pipe(ext_replace('.ejs'))
       .pipe(gulp.dest(config.outPath))
 });
 
-/*
-Read_File is going read all the templates and apply the rules.
-*/
+/*Read_File is going to read all the templates and apply the conversion rules and save some information for the report.html.*/
 gulp.task("Read_File", function() {
     return gulp.src(config.outPath + '/**/*.ejs')
         .pipe(through.obj(function (file, enc, cb) {
@@ -40,6 +39,7 @@ gulp.task("Read_File", function() {
         }))
 });
 
+/*this task is going to write a report of the converting process*/
 gulp.task("Write_Report", function() {
     return gulp.src('./Reports/layout/LayoutReport.html')
         .pipe(through.obj(function (file, enc, cb) {
