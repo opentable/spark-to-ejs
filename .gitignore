@@ -18,6 +18,7 @@ nytprof.out
 *.o
 *.bs
 /_eumm/
-/node_modules
-/Templates-ejs
 /Views
+/node_modules
+/templates-ejs
+/Reports
