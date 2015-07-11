@@ -78,7 +78,7 @@ This is a gulp project that uses some awesome libraries like cheerio and through
        <var  RestaurantOffers="Restaurant.tables" />
     EJS
        <%var RestaurantOffers=Restaurant.tables %>
-       ```
+```
 ###Render Partial
 ```xml
     SPARK
