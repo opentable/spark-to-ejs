@@ -39,7 +39,7 @@ This is a gulp project that uses some awesome libraries like cheerio and through
                <div>content</div>
           </div>
       <%}%>
-   ```
+```
    ###Test if
  ```xml
     SPARK
@@ -48,8 +48,9 @@ This is a gulp project that uses some awesome libraries like cheerio and through
      <% if(x){%>
        anyXml
      <% } %>
-        ```
+ ```
 ###Looping and iteration
+
 ###Each attribute
 ```xml
     SPARK
