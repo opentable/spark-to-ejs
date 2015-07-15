@@ -1,4 +1,6 @@
+require('babel/register');
+
 module.exports = {
-   inputPath : './Views',
-   outPath  :  './templates-ejs'
+   inputPath : '../SearchResults/Web/Views/',
+   outPath  :  '../search-result-node/app/views/ejs-templates'
 };
