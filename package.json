@@ -1,13 +1,13 @@
 {
-  "name": "spark-to-js-gulp",
-  "version": "1.0.0",
+  "name": "spark-to-ejs",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build"
   },
-  "author": "Abraham Arias",
-  "license": "ISC",
+  "author": "OpenTable",
+  "license": "MIT",
   "devDependencies": {
     "gulp-ext-replace": "^0.2.0",
     "gulp-replace-task": "^0.2.1",

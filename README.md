@@ -1,4 +1,4 @@
-#Spark to EJS Converter Script
+#Spark to EJS
 This is a gulp project that uses some awesome libraries like cheerio and ejs-mate for converting spark templates to ejs. so far, this project transform this spark tags
 
 ###some examples:
