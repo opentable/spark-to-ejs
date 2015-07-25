@@ -21,6 +21,7 @@
     "gulp": "3.9.0",
     "gulp-install": "^0.4.0",
     "gulp-jshint": "1.11.0",
-    "through2": "2.0.0"
+    "through2": "2.0.0",
+    "underscore": "^1.8.3"
   }
 }
